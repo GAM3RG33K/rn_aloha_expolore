@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
 import { CommonActions } from '@react-navigation/native';
 
 import { useTheme } from '@/theme';
@@ -12,7 +11,6 @@ import type { RootScreenProps } from '@/types/navigation';
 
 function Startup({ navigation }: RootScreenProps<'Startup'>) {
 	const { layout, gutters, fonts } = useTheme();
-	const { t } = useTranslation(['startup']);
 
 	const { isSuccess, isFetching, isError } = useQuery({
 		queryKey: ['startup'],
@@ -26,7 +24,7 @@ function Startup({ navigation }: RootScreenProps<'Startup'>) {
 			navigation.dispatch(
 				CommonActions.reset({
 					index: 0,
-					routes: [{ name: 'Example' }],
+					routes: [{ name: 'Home' }],
 				}),
 			);
 		}
@@ -48,7 +46,7 @@ function Startup({ navigation }: RootScreenProps<'Startup'>) {
 				)}
 				{isError && (
 					<Text style={[fonts.size_16, fonts.red500]}>
-						{t('startup:error')}
+						{"Something went wrong"}
 					</Text>
 				)}
 			</View>

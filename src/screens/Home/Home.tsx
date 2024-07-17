@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	View,
 	ActivityIndicator,
@@ -6,9 +6,9 @@ import {
 	TouchableOpacity,
 	ScrollView,
 	Alert,
+	Image,
 } from 'react-native';
 import i18next from 'i18next';
-import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 
 import { ImageVariant } from '@/components/atoms';
@@ -21,11 +21,9 @@ import { isImageSourcePropType } from '@/types/guards/image';
 
 import SendImage from '@/theme/assets/images/send.png';
 import ColorsWatchImage from '@/theme/assets/images/colorswatch.png';
-import TranslateImage from '@/theme/assets/images/translate.png';
+import AppBar from '@/components/molecules/AppBar/AppBar';
 
-function Example() {
-	const { t } = useTranslation(['example', 'welcome']);
-
+function Home() {
 	const {
 		colors,
 		variant,
@@ -49,7 +47,7 @@ function Example() {
 
 	useEffect(() => {
 		if (isSuccess) {
-			Alert.alert(t('example:welcome', data.name));
+			Alert.alert("Welcome ", data.name);
 		}
 	}, [isSuccess, data]);
 
@@ -63,35 +61,31 @@ function Example() {
 
 	if (
 		!isImageSourcePropType(SendImage) ||
-		!isImageSourcePropType(ColorsWatchImage) ||
-		!isImageSourcePropType(TranslateImage)
+		!isImageSourcePropType(ColorsWatchImage)
 	) {
 		throw new Error('Image source is not valid');
 	}
 
 	return (
 		<SafeScreen>
-			<ScrollView>
-				<View
-					style={[
-						layout.justifyCenter,
-						layout.itemsCenter,
-						gutters.marginTop_80,
-					]}
-				>
-					<View
-						style={[layout.relative, backgrounds.gray100, components.circle250]}
-					/>
 
-					<View style={[layout.absolute, gutters.paddingTop_80]}>
-						<Brand height={300} width={300} />
-					</View>
+			<AppBar height={80}>
+				<View style={[gutters.paddingVertical_12]}>
+					<Brand height={50} width={100} />
 				</View>
-
+			</AppBar>
+			<ScrollView>
+				<View>
+					<Image source={{
+						uri: 'https://i.imgur.com/zJTZkay.png',
+						height: 480,
+						width: 400,
+					}} />
+				</View>
 				<View style={[gutters.paddingHorizontal_32, gutters.marginTop_40]}>
 					<View style={[gutters.marginTop_40]}>
 						<Text style={[fonts.size_40, fonts.gray800, fonts.bold]}>
-							{t('welcome:title')}
+							{"Welcome to Aloha Explorer"}
 						</Text>
 						<Text
 							style={[
@@ -101,12 +95,7 @@ function Example() {
 								gutters.marginBottom_32,
 							]}
 						>
-							{t('welcome:subtitle')}
-						</Text>
-						<Text
-							style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}
-						>
-							{t('welcome:description')}
+							{"Your ultimate travel guide for exploring the beautiful islands of Hawaii"}
 						</Text>
 					</View>
 
@@ -143,19 +132,6 @@ function Example() {
 								style={{ tintColor: colors.purple500 }}
 							/>
 						</TouchableOpacity>
-
-						<TouchableOpacity
-							testID="change-language-button"
-							style={[components.buttonCircle, gutters.marginBottom_16]}
-							onPress={() =>
-								onChangeLanguage(i18next.language === 'fr' ? 'en' : 'fr')
-							}
-						>
-							<ImageVariant
-								source={TranslateImage}
-								style={{ tintColor: colors.purple500 }}
-							/>
-						</TouchableOpacity>
 					</View>
 				</View>
 			</ScrollView>
@@ -163,4 +139,4 @@ function Example() {
 	);
 }
 
-export default Example;
+export default Home;
