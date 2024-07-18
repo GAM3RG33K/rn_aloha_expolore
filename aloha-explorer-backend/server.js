@@ -6,19 +6,19 @@ app.use(express.json());
 
 // Mock data
 const highlights = [
-    { title: 'Surfing', description: 'Best Hawaiian islands for surfing.' },
-    { title: 'Hula', description: 'Try it yourself.' },
-    { title: 'Volcanoes', description: 'Volcanic conditions can change at any time.' },
+    { title: 'Surfing', description: 'Best Hawaiian islands for surfing.', image: 'https://i.imgur.com/I8oDPIU.png' },
+    { title: 'Hula', description: 'Try it yourself.', image: 'https://i.imgur.com/LA2q9CC.png' },
+    { title: 'Volcanoes', description: 'Volcanic conditions can change at any time.', image: 'https://i.imgur.com/nersdgq.png' },
 ];
 
 const guides = [
-    { name: 'Hadwin Malone', since: 2012 },
+    { name: 'Hadwin Malone', since: 2012, image: 'https://i.imgur.com/71lC3Ba.png' },
 ];
 
 const topSpots = [
-    { name: 'Maui', rank: 32 },
-    { name: 'Kauai', rank: 72 },
-    { name: 'Honolulu', rank: 2 },
+    { name: 'Maui', rank: 32, image: 'https://i.imgur.com/iAHyYhR.jpeg' },
+    { name: 'Kauai', rank: 72, image: 'https://i.imgur.com/42Hnlxv.jpeg' },
+    { name: 'Honolulu', rank: 2, image: 'https://i.imgur.com/ml4VjZw.jpeg' },
 ];
 
 // Endpoints

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
 	View,
-	Text,
 	ScrollView,
 	Image,
 } from 'react-native';
@@ -14,6 +13,7 @@ import { useTheme } from '@/theme';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 import AppBar from '@/components/molecules/AppBar/AppBar';
+import Highlights, { HighlightDataType } from '@/components/molecules/Highlights/HighLights';
 
 type HomeDataType = {
 	header: HeaderDataType,
@@ -25,13 +25,6 @@ type HomeDataType = {
 type HeaderDataType = {
 	message: string;
 	image: string;
-};
-
-type HighlightDataType = {
-	id: number;
-	title: string;
-	description: string;
-	imageUrl: string;
 };
 
 type GuideDataType = {
@@ -86,7 +79,6 @@ function Home() {
 				setTimeout(async () => {
 					const data = await fetchAllHomeData();
 
-					console.log("HOME DATA: ", JSON.stringify(data))
 					setHomeData(data);
 					setHighlights(data.highlights);
 					setGuides(data.guides);
@@ -138,21 +130,9 @@ function Home() {
 						width: 400,
 					}} />
 				</View>
-				<View style={[gutters.paddingHorizontal_32, gutters.marginTop_40]}>
-					<View style={[gutters.marginTop_40]}>
-						<Text style={[fonts.size_32, fonts.gray800, fonts.bold]}>
-							{homeData.header?.message}
-						</Text>
-						<Text
-							style={[
-								fonts.gray400,
-								fonts.bold,
-								fonts.size_16,
-								gutters.marginBottom_32,
-							]}
-						>
-							{"Your ultimate travel guide for exploring the beautiful islands of Hawaii"}
-						</Text>
+				<View style={[gutters.marginVertical_32]}>
+					<View style={[gutters.paddingLeft_12]}>
+						<Highlights highlights={highlights} />
 					</View>
 				</View>
 			</ScrollView>
