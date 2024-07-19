@@ -8,7 +8,7 @@ import {
 	Text,
 } from 'react-native';
 
-import { Brand } from '@/components/molecules';
+import { Brand, Guides } from '@/components/molecules';
 import { fetchAllHomeData } from '@/services/data';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
@@ -17,13 +17,13 @@ import AppBar from '@/components/molecules/AppBar/AppBar';
 import TopSpots, { TopSpotDataType } from '@/components/molecules/TopSpots/TopSpots';
 import { HighlightDataType } from '@/components/molecules/Highlights/HighLights';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { GuideDataType } from '@/components/molecules/Guides/Guides';
 
 
-function ActivityDetails(activity: HighlightDataType, topSpots: TopSpotDataType[]) {
+function ActivityDetails(activity: HighlightDataType, topSpots: TopSpotDataType[], guides: GuideDataType[]) {
 
 	const {
-		gutters,
-		layout,
+		gutters
 	} = useTheme();
 
 
@@ -62,9 +62,14 @@ function ActivityDetails(activity: HighlightDataType, topSpots: TopSpotDataType[
 							width: 400,
 						}} />
 					</View>
-					<View style={[gutters.marginVertical_32, gutters.paddingHorizontal_12]}>
-						<Text >{activity.description}</Text>
-						<TopSpots topSpots={topSpots} />
+					<View style={[gutters.marginVertical_32]}>
+						<View style={[gutters.paddingHorizontal_12]}>
+							<Text style={{ fontSize: 16, fontWeight: '400', color: '#333' }}>{activity.description}</Text>
+							<TopSpots topSpots={topSpots} />
+						</View>
+						<View style={{ backgroundColor: '#E6F2F2', ...gutters.paddingLeft_12 }}>
+							<Guides guides={guides} />
+						</View>
 					</View>
 					<View style={[gutters.paddingTop_80]}></View>
 				</ScrollView>

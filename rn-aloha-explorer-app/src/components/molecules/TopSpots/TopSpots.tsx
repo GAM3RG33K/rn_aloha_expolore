@@ -16,14 +16,14 @@ interface TopSpotsProps {
   topSpots: Array<TopSpotDataType>,
 }
 
-const TopSpotItem: React.FC<{ item: TopSpotDataType, index: number }> = ({ item }) => {
+const TopSpotItem: React.FC<{ item: TopSpotDataType, index: number }> = ({ item, index }) => {
   if (!item) {
     return <React.Fragment />;
   }
   return (
     <TouchableOpacity onPress={() => Alert.alert('Alert', `Clicked on ${item.name}`)}>
       <View style={styles.item}>
-        <Text style={styles.itemText}>{item.name}</Text>
+        <Text style={styles.itemText}>{(index + 1).toString()}. {item.name}</Text>
         <Icon name="arrow-forward" size={24} color="#008080" />
       </View>
     </TouchableOpacity>
@@ -34,7 +34,7 @@ const TopSpots = ({ topSpots }: TopSpotsProps) => (
   <View style={styles.container}>
     <Text style={styles.title}>TopSpots</Text>
     {topSpots.map((item, index) => {
-      return <TopSpotItem key={item.id} item={item} index={index} />;
+      return <TopSpotItem key={index + (item.id || 1)} item={item} index={index} />;
     })}
   </View>
 );
@@ -60,11 +60,12 @@ const styles = StyleSheet.create({
     marginRight: 16,
     marginBottom: 8,
     borderRadius: 8,
+    elevation: 3,
   },
   itemText: {
     fontSize: 16,
-    fontWeight: '400',
-    color: '#333'
+    fontWeight: '700',
+    color: '#008080'
   },
   separator: {
     height: 1,

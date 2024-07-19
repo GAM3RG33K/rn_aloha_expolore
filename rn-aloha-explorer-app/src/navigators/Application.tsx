@@ -19,7 +19,8 @@ import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } fr
 import { HighlightDataType } from '@/components/molecules/Highlights/HighLights';
 import { CategoriesDataType } from '@/components/molecules/Categories/Categories';
 import { bookATrip, fetchAllHomeData } from '@/services/data';
-import TopSpots, { TopSpotDataType } from '@/components/molecules/TopSpots/TopSpots';
+import { TopSpotDataType } from '@/components/molecules/TopSpots/TopSpots';
+import { GuideDataType } from '@/components/molecules/Guides/Guides';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -38,15 +39,6 @@ export type HomeDataType = {
 export type HeaderDataType = {
 	message: string;
 	image: string;
-};
-
-
-
-export type GuideDataType = {
-	id: number;
-	name: string;
-	rating: number;
-	reviews: number;
 };
 
 
@@ -110,8 +102,6 @@ function ApplicationNavigator() {
 					setTimeout(async () => {
 
 						const response = await bookATrip(name, destination, date);
-
-						console.log("bookATrip: ", JSON.stringify(response));
 						if (response.status === 201) {
 							Alert.alert("Success", response.data);
 						} else {
@@ -157,10 +147,10 @@ function ApplicationNavigator() {
 			>
 				<Tab.Screen name="Home" component={Home} />
 				{activities?.map((activity) => {
-					return <Tab.Screen key={activity.title || 'id'} name={activity.title || 'name'} component={() => ActivityDetails(activity, homeData.topSpots)} />;
+					return <Tab.Screen key={activity.title || 'id'} name={activity.title || 'name'} component={() => ActivityDetails(activity, homeData.topSpots, homeData.guides)} />;
 				})}
 			</Tab.Navigator>
-			<FloatingButton />
+			{isLoading.current ? <View /> : <FloatingButton />}
 		</View>
 	);
 

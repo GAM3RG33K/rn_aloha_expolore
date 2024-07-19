@@ -42,8 +42,6 @@ const GuideItem: React.FC<{ item: GuideDataType }> = ({ item }) => {
             setTimeout(async () => {
 
               const response = await contactGuide(item.id.toString());
-
-              console.log("contactGuide: ", JSON.stringify(response));
               if (response.status === 200) {
                 Alert.alert("Success", response.data);
               } else {
