@@ -1,16 +1,10 @@
 # Aloha Explorer
 
+## Frontend
+
 Aloha Explorer is a React Native mobile application designed to be your ultimate travel guide for exploring the beautiful islands of Hawaii. Whether you're interested in surfing, experiencing traditional hula, or exploring volcanoes, Aloha Explorer has you covered.
 
-## Features
-
-- Comprehensive travel guides for multiple Hawaiian islands
-- Information on top surfing spots
-- Guide to traditional Hula experiences
-- Up-to-date information on volcanic activities and safe exploration
-- Easy trip booking functionality
-
-## Getting Started
+### Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -31,28 +25,59 @@ These instructions will get you a copy of the project up and running on your loc
 
 2. Navigate to the project directory:
    ```
-   cd aloha-explorer
+   cd rn-aloha-explorer-app
    ```
 
 3. Install dependencies:
    ```
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 4. Start the Metro bundler:
    ```
-   npx react-native start
+   npx react-native@latest start
    ```
 
 5. Run the app on Android:
    ```
-   npx react-native run-android
+   npx react-native@latest run-android
    ```
 
-   Or on iOS:
+## Backend
+
+Aloha Explorer backend is the server that powers Aloha Explorer's APP. It uses Node.js and Express.js to handle HTTP requests and responses.
+
+### Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm (v6 or later)
+
+### Installation
+
+1. Clone the repository:
    ```
-   npx react-native run-ios
+   git clone https://github.com/yourusername/aloha-explorer.git
    ```
+
+2. Navigate to the project directory:
+   ```
+   cd aloha-explorer-backend
+   ```
+
+3. Install dependencies:
+   ```
+   npm install --legacy-peer-deps
+   ```
+
+4. Start the Server:
+   ```
+   node server.js
+   ```
+
 
 ## Development
 

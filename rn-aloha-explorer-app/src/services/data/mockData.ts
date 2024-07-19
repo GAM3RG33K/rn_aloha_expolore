@@ -1,4 +1,3 @@
-console.log(`process.env.MOCK_BUILD: ${process.env.MOCK_BUILD}`);
 export const isMockBuild = false; // Only make it true for demo
 
 // Mock data
