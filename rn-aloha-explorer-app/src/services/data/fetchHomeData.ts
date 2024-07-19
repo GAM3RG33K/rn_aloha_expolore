@@ -23,6 +23,17 @@ export const fetchHighlightsData = async () => {
 	}
 };
 
+
+export const fetchCategories = async () => {
+	try {
+		const response = await instance.get('/api/categories');
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching categories data:', JSON.stringify(error));
+		throw error;
+	}
+};
+
 export const fetchGuides = async () => {
 	try {
 		const response = await instance.get('/api/guides');
@@ -55,13 +66,14 @@ export const bookTrip = async (name: string, destination: string, date: string) 
 
 export const fetchAllHomeData = async () => {
 	try {
-		const [header, highlights, guides, topSpots] = await Promise.all([
+		const [header, highlights, categories, guides, topSpots] = await Promise.all([
 			fetchHomeHeader(),
 			fetchHighlightsData(),
+			fetchCategories(),
 			fetchGuides(),
 			fetchTopSpots()
 		]);
-		return { header, highlights, guides, topSpots };
+		return { header, highlights,categories, guides, topSpots };
 	} catch (error) {
 		console.error('Error fetching all home data:', JSON.stringify(error));
 		throw error;

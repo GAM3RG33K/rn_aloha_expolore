@@ -1,1 +1,1 @@
-export * from './fetch_home_data';
+export * from './fetchHomeData';

@@ -24,7 +24,7 @@ function Startup({ navigation }: RootScreenProps<'Startup'>) {
 			navigation.dispatch(
 				CommonActions.reset({
 					index: 0,
-					routes: [{ name: 'Home' }],
+					routes: [{ name: 'HomeMain' }],
 				}),
 			);
 		}

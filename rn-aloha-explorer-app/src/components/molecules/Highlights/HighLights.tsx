@@ -49,10 +49,11 @@ const Highlights = ({ highlights }: HighlightsProps) => (
 
 const styles = StyleSheet.create({
   container: {
+    paddingVertical: 32,
   },
   header: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 16,
+    fontWeight: '700',
     marginBottom: 16,
     color: '#333',
   },
