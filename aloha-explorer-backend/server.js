@@ -6,9 +6,33 @@ app.use(express.json());
 
 // Mock data
 const highlights = [
-    { title: 'Surfing', description: 'Best Hawaiian islands for surfing.', image: 'https://i.imgur.com/I8oDPIU.png' },
-    { title: 'Hula', description: 'Try it yourself.', image: 'https://i.imgur.com/LA2q9CC.png' },
-    { title: 'Volcanoes', description: 'Volcanic conditions can change at any time.', image: 'https://i.imgur.com/nersdgq.png' },
+    {
+        title: 'Surfing',
+        subtitle: 'Best Hawaiian islands for surfing.',
+        image: 'https://i.imgur.com/I8oDPIU.png',
+        description: 'Experience the thrill of riding the waves in Hawaii, known for its world-class surfing spots. From the North Shore of Oahu to the pristine beaches of Maui, discover the best islands to catch the perfect wave.'
+    },
+    {
+        title: 'Hula',
+        subtitle: 'Try it yourself.',
+        image: 'https://i.imgur.com/LA2q9CC.png',
+        description: 'Immerse yourself in the rich cultural tradition of Hula, a Hawaiian dance that tells stories through graceful movements. Join a class and learn the art of Hula to connect with the island’s heritage and spirit.'
+    },
+    {
+        title: 'Volcanoes',
+        subtitle: 'Volcanic conditions can change at any time.',
+        image: 'https://i.imgur.com/nersdgq.png',
+        description: 'Explore the majestic volcanoes of Hawaii, where the land is alive with geothermal activity. Visit Volcanoes National Park to witness the awe-inspiring power of nature, but be aware that volcanic conditions can change rapidly.'
+    },
+];
+
+const categories = [
+    { id: '1', name: 'Adventure' },
+    { id: '2', name: 'Culinary' },
+    { id: '3', name: 'Eco-tourism' },
+    { id: '4', name: 'Family' },
+    { id: '5', name: 'Sport' },
+
 ];
 
 const guides = [
@@ -33,6 +57,10 @@ app.get('/api/header', (req, res) => {
 
 app.get('/api/highlights', (req, res) => {
     res.json(highlights);
+});
+
+app.get('/api/categories', (req, res) => {
+    res.json(categories);
 });
 
 app.get('/api/guides', (req, res) => {
