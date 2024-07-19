@@ -42,7 +42,6 @@ function Home() {
 	const [highlights, setHighlights] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [guides, setGuides] = useState([]);
-	const [topSpots, setTopSpots] = useState([]);
 
 	const isLoading = useRef(true);
 
@@ -59,7 +58,6 @@ function Home() {
 					setHighlights(data.highlights);
 					setCategories(data.categories);
 					setGuides(data.guides);
-					setTopSpots(data.topSpots);
 
 				}, 1500);
 
@@ -90,7 +88,6 @@ function Home() {
 			</View>
 		</SkeletonPlaceholder>);
 	}
-
 	return (
 		<SafeScreen >
 
@@ -111,11 +108,11 @@ function Home() {
 					</View>
 					<View style={[gutters.marginVertical_32]}>
 						<View style={[gutters.paddingLeft_12]}>
-							<Highlights highlights={highlights} />
+							{highlights && highlights.length > 0 ? <Highlights highlights={highlights} /> : null}
 						</View>
 						<View style={{ backgroundColor: '#E6F2F2', ...gutters.paddingLeft_12 }}>
-							<Categories categories={categories} />
-							<Guides guides={guides} />
+							{categories && categories.length > 0 ? <Categories categories={categories} /> : null}
+							{guides && guides.length > 0 ? <Guides guides={guides} /> : null}
 						</View>
 					</View>
 					<View style={[gutters.paddingTop_80]}></View>

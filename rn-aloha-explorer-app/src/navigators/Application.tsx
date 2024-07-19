@@ -146,9 +146,9 @@ function ApplicationNavigator() {
 					})}
 			>
 				<Tab.Screen name="Home" component={Home} />
-				{activities?.map((activity) => {
+				{activities && activities.length > 0 ? activities.map((activity) => {
 					return <Tab.Screen key={activity.title || 'id'} name={activity.title || 'name'} component={() => ActivityDetails(activity, homeData.topSpots, homeData.guides)} />;
-				})}
+				}) : null}
 			</Tab.Navigator>
 			{isLoading.current ? <View /> : <FloatingButton />}
 		</View>

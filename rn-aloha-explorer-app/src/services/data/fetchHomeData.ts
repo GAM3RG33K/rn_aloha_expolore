@@ -1,9 +1,14 @@
 import { instance } from '@/services/instance';
-
+import { isMockBuild, highlights, categories, guides, topSpots } from './mockData';
 
 export const fetchHomeHeader = async () => {
 	try {
-		
+
+		if (isMockBuild) {
+			return new Promise((resolve, error) => {
+				resolve({ "message": "Welcome to Hawaii", "image": "https://i.imgur.com/zJTZkay.png" });
+			});
+		}
 		const response = await instance.get('/api/header');
 		return response.data;
 	} catch (error) {
@@ -15,6 +20,11 @@ export const fetchHomeHeader = async () => {
 
 export const fetchHighlightsData = async () => {
 	try {
+		if (isMockBuild) {
+			return new Promise((resolve, error) => {
+				resolve(highlights);
+			});
+		}
 		const response = await instance.get('/api/highlights');
 		return response.data;
 	} catch (error) {
@@ -26,6 +36,11 @@ export const fetchHighlightsData = async () => {
 
 export const fetchCategories = async () => {
 	try {
+		if (isMockBuild) {
+			return new Promise((resolve, error) => {
+				resolve(categories);
+			});
+		}
 		const response = await instance.get('/api/categories');
 		return response.data;
 	} catch (error) {
@@ -36,6 +51,11 @@ export const fetchCategories = async () => {
 
 export const fetchGuides = async () => {
 	try {
+		if (isMockBuild) {
+			return new Promise((resolve, error) => {
+				resolve(guides);
+			});
+		}
 		const response = await instance.get('/api/guides');
 		return response.data;
 	} catch (error) {
@@ -46,20 +66,15 @@ export const fetchGuides = async () => {
 
 export const fetchTopSpots = async () => {
 	try {
+		if (isMockBuild) {
+			return new Promise((resolve, error) => {
+				resolve(topSpots);
+			});
+		}
 		const response = await instance.get('/api/top-spots');
 		return response.data;
 	} catch (error) {
 		console.error('Error fetching top spots data:', JSON.stringify(error));
-		throw error;
-	}
-};
-
-export const bookTrip = async (name: string, destination: string, date: string) => {
-	try {
-		const response = await instance.post('/api/book-trip', { name, destination, date });
-		return response.data;
-	} catch (error) {
-		console.error('Error booking trip:', JSON.stringify(error));
 		throw error;
 	}
 };
@@ -73,7 +88,8 @@ export const fetchAllHomeData = async () => {
 			fetchGuides(),
 			fetchTopSpots()
 		]);
-		return { header, highlights,categories, guides, topSpots };
+
+		return { header, highlights, categories, guides, topSpots };
 	} catch (error) {
 		console.error('Error fetching all home data:', JSON.stringify(error));
 		throw error;
