@@ -15,10 +15,10 @@ import type { RootStackParamList } from '@/types/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { View } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { HighlightDataType } from '@/components/molecules/Highlights/HighLights';
 import { CategoriesDataType } from '@/components/molecules/Categories/Categories';
-import { fetchAllHomeData } from '@/services/data';
+import { bookATrip, fetchAllHomeData } from '@/services/data';
 import TopSpots, { TopSpotDataType } from '@/components/molecules/TopSpots/TopSpots';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -74,7 +74,7 @@ function ApplicationNavigator() {
 			try {
 				isLoading.current = true;
 
-				// Introduce manual delay to show shimmer effects
+				// Introduce manual delay to show loader
 				setTimeout(async () => {
 					const data = await fetchAllHomeData();
 
@@ -95,40 +95,73 @@ function ApplicationNavigator() {
 		fetchData();
 	}, []);
 
-	const HomeComponent = () => (
-		<Tab.Navigator
-			screenOptions={
-				({ route }) => ({
-					headerShown: false,
-					tabBarIcon: ({ focused, color, size }) => {
-						let iconName = 'home';
-						switch (route.name) {
-							case 'Home':
-								iconName = 'home';
-								break;
-							case 'Surfing':
-								return <MatComIcon name={"surfing"} size={24} color={color} />;
-							case 'Hula':
-								iconName = 'nightlife';
-								break;
-							case 'Volcanoes':
-								iconName = 'filter-hdr';
-								break;
-						}
-						return <MatIcon name={iconName} size={24} color={color} />;
-					},
-					tabBarActiveTintColor: '#008080',
-					tabBarInactiveTintColor: '#333',
-					tabBarActiveBackgroundColor: '#ffffff',
-					tabBarInactiveBackgroundColor: '#ffffff',
-				})}
-		>
-			<Tab.Screen name="Home" component={Home} />
-			{activities?.map((activity) => {
-				return <Tab.Screen key={activity.title || 'id'} name={activity.title || 'name'} component={() => ActivityDetails(activity, homeData.topSpots)} />;
-			})}
+	const FloatingButton = () => {
 
-		</Tab.Navigator>
+		const [isBooking, setIsBooking] = useState(false);
+		return (
+			<TouchableOpacity style={styles.floatingButton} onPress={
+				async () => {
+					const name = 'John Deer';
+					const destination = 'Maui';
+					const date = new Date().toISOString();
+
+
+					setIsBooking(true);
+					setTimeout(async () => {
+
+						const response = await bookATrip(name, destination, date);
+
+						console.log("bookATrip: ", JSON.stringify(response));
+						if (response.status === 201) {
+							Alert.alert("Success", response.data);
+						} else {
+							Alert.alert("Failed", `Failed to book trip, Response error: ${response.data}`);
+						}
+
+						setIsBooking(false);
+					}, 1500);
+				}}>
+				{isBooking ? <ActivityIndicator color="white" size="small" /> : <Text style={styles.floatingButtonText}>Book a trip</Text>}
+			</TouchableOpacity>
+		);
+	};
+
+	const HomeComponent = () => (
+		<View style={{ flex: 1 }}>
+			<Tab.Navigator
+				screenOptions={
+					({ route }) => ({
+						headerShown: false,
+						tabBarIcon: ({ focused, color, size }) => {
+							let iconName = 'home';
+							switch (route.name) {
+								case 'Home':
+									iconName = 'home';
+									break;
+								case 'Surfing':
+									return <MatComIcon name={"surfing"} size={24} color={color} />;
+								case 'Hula':
+									iconName = 'nightlife';
+									break;
+								case 'Volcanoes':
+									iconName = 'filter-hdr';
+									break;
+							}
+							return <MatIcon name={iconName} size={24} color={color} />;
+						},
+						tabBarActiveTintColor: '#008080',
+						tabBarInactiveTintColor: '#333',
+						tabBarActiveBackgroundColor: '#ffffff',
+						tabBarInactiveBackgroundColor: '#ffffff',
+					})}
+			>
+				<Tab.Screen name="Home" component={Home} />
+				{activities?.map((activity) => {
+					return <Tab.Screen key={activity.title || 'id'} name={activity.title || 'name'} component={() => ActivityDetails(activity, homeData.topSpots)} />;
+				})}
+			</Tab.Navigator>
+			<FloatingButton />
+		</View>
 	);
 
 	return (
@@ -148,3 +181,30 @@ function ApplicationNavigator() {
 }
 
 export default ApplicationNavigator;
+
+
+
+const styles = StyleSheet.create({
+
+	floatingButton: {
+		position: 'absolute',
+		bottom: 70,
+		left: 20,
+		right: 20,
+		backgroundColor: '#008080',
+		borderRadius: 10,
+		height: 44,
+		justifyContent: 'center',
+		alignItems: 'center',
+		elevation: 5,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	},
+	floatingButtonText: {
+		color: 'white',
+		fontSize: 16,
+		fontWeight: '700',
+	},
+});

@@ -72,8 +72,11 @@ app.get('/api/top-spots', (req, res) => {
 });
 
 app.post('/api/book-trip', (req, res) => {
+    console.log('/api/book-trip', JSON.stringify(req.body));
     const { name, destination, date } = req.body;
-    res.json({ message: `Trip booked for ${name} to ${destination} on ${date}` });
+    res.status = 201;
+    res.send(`Trip booked for ${name} to ${destination} on ${date}`);
+
 });
 
 app.listen(port, () => {

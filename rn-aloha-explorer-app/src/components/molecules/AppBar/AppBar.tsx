@@ -1,5 +1,3 @@
-// src/components/Appbar.tsx
-
 import React, { PropsWithChildren } from 'react';
 import { View } from 'react-native';
 
