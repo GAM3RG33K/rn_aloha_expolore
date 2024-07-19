@@ -36,7 +36,7 @@ const categories = [
 ];
 
 const guides = [
-    { name: 'Hadwin Malone', since: 2012, image: 'https://i.imgur.com/71lC3Ba.png' },
+    { id: 1, name: 'Hadwin Malone', since: 2012, image: 'https://i.imgur.com/71lC3Ba.png' },
 ];
 
 const topSpots = [
@@ -72,10 +72,24 @@ app.get('/api/top-spots', (req, res) => {
 });
 
 app.post('/api/book-trip', (req, res) => {
-    console.log('/api/book-trip', JSON.stringify(req.body));
     const { name, destination, date } = req.body;
     res.status = 201;
     res.send(`Trip booked for ${name} to ${destination} on ${date}`);
+
+});
+
+app.post('/api/contact-guide', (req, res) => {
+    const { id } = req.body;
+    const guide = guides.find(g => g.id.toString() === id);
+    if (guide) {
+        res.status = 200;
+        res.send(`You have contacted ${guide.name}, They will reach out to you soon`);
+        res.end();
+    } else {
+        res.status = 404;
+        res.send(`Guide contact details not found `);
+        res.end();
+    }
 
 });
 
