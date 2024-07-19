@@ -39,7 +39,7 @@ const Categories = ({ categories }: CategoriesProps) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 16,
+    marginVertical: 20,
   },
   title: {
     fontSize: 16,

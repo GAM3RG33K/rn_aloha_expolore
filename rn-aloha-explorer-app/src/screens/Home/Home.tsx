@@ -7,7 +7,7 @@ import {
 	Image,
 } from 'react-native';
 
-import { Brand } from '@/components/molecules';
+import { Brand, Guides } from '@/components/molecules';
 import { fetchAllHomeData } from '@/services/data';
 import { getData, setData } from '@/services/storage';
 import { SafeScreen } from '@/components/template';
@@ -25,8 +25,7 @@ import { HomeDataType } from '@/navigators/Application';
 
 function Home() {
 	const {
-		gutters,
-		layout,
+		gutters
 	} = useTheme();
 
 
@@ -116,6 +115,7 @@ function Home() {
 						</View>
 						<View style={{ backgroundColor: '#E6F2F2', ...gutters.paddingLeft_12 }}>
 							<Categories categories={categories} />
+							<Guides guides={guides} />
 						</View>
 					</View>
 					<View style={[gutters.paddingTop_80]}></View>
